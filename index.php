@@ -8,7 +8,7 @@ if (isset($_POST['submit'])) {
     $pass = $_POST['pwd'];
     if(isset($nom) && isset($email) && isset($login) && isset($pass) && !empty($nom) && !empty($email) && !empty($login) && !empty($pass)){
 
-        if($_SESSION['login'] == $login){
+        if(isset($_SESSION['login']) && ($_SESSION['login'] == $login)){
 
             $error ="Login déjà pris, veuillez changer";
         }
@@ -45,7 +45,10 @@ if (isset($_POST['submit'])) {
     <main>
         <h1>S'enregistrer</h1>
         <form action="" method="POST">
-            <p class="<?php echo (isset($error)) ? 'erreur' : 'success' ;?>"><?php echo (isset($error)) ? $error : $success;?> </p>
+            <p class="<?php echo (isset($error)) ? 'erreur' : 'success' ;?>">
+                <?php if(isset($error)){echo $error;}
+                elseif(isset($success)){echo $success;}?>
+            </p>
             <input type="text" name="nom" placeholder="Nom complet">
             <input type="email" name="email" placeholder="Adresse email">
             <input type="text" name="login" placeholder="Username">
